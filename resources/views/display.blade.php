@@ -13,7 +13,7 @@
                 @case(\App\Models\MediaContent::MEDIA_TYPE_VIDEO)
                     <div class="border p-2">
                         <p class="uppercase">Video</p>
-                        <video autoplay loop>
+                        <video autoplay muted loop>
                             <source src="{{ $schedule->mediaContent->getFirstMedia()->getFullUrl() }}" type="video/mp4">
                         </video>
                     </div>
