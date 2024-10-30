@@ -7,7 +7,6 @@ use Livewire\Component;
 
 class DisplayForm extends Component
 {
-
     public string $name = '';
 
     public $rules = [

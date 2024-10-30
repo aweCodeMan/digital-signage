@@ -18,8 +18,12 @@
     @apply disabled:bg-gray-400 disabled:text-gray-500 border-blue-400 bg-blue-50 text-blue-800;
 
     &:hover {
-        @apply bg-blue-400 border-blue-500;
+        @apply bg-blue-400 border-blue-500
     }
+}
+
+.card {
+    @apply rounded border bg-gray-50 shadow p-3;
 }
 
 .btn-danger-outline {
@@ -29,3 +33,14 @@
         @apply bg-red-400 border-red-500;
     }
 }
+
+.navbar {
+    a {
+        @apply uppercase text-sm font-semibold text-gray-600 px-2;
+
+        &:hover, &.active {
+            @apply text-black font-bold;
+        }
+    }
+}
+

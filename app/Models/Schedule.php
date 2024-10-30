@@ -13,14 +13,22 @@ class Schedule extends Model
         'end_at' => 'datetime',
     ];
 
-
     public function mediaContents()
     {
         return $this->belongsToMany(MediaContent::class)->withPivot(['cutoff_seconds']);
     }
 
-    public function display()
+    public function displays()
     {
-        return $this->belongsTo(Display::class);
+        return $this->belongsToMany(Display::class)->withPivot(['order']);
+    }
+
+    public function getNameAttribute()
+    {
+        if ($this->attributes['name']) {
+            return $this->attributes['name'];
+        }
+
+        return "Schedule #$this->id";
     }
 }

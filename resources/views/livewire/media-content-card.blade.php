@@ -21,7 +21,8 @@
 
     @if($mediaContent->media_type ==
   \App\Models\MediaContent::MEDIA_TYPE_URL)
-        <p class="text-sm text-gray-900">URL: <a class="text-sm text-gray-500" target="_blank" href="{{ $mediaContent->data['url'] }}">{{
+        <p class="text-sm text-gray-900">URL: <a class="text-sm text-gray-500" target="_blank"
+                                                 href="{{ $mediaContent->data['url'] }}">{{
         $mediaContent->data['url'] }}</a></p>
     @endif
 
@@ -33,7 +34,18 @@
     <p class="mt-3 text-sm font-semibold">Current active schedules:</p>
     <ul class="list-disc pl-4 text-sm">
         @foreach($mediaContent->schedules as $schedule)
-            <li>{{ $schedule->display->name  }} | {{$schedule->start_at->format('d.m.Y H:i')}} - {{
+            <li>
+                <ul>
+                    @foreach($schedule->displays as $display)
+                        <li>
+                            {{ $display->name  }}
+
+                        </li>
+                    @endforeach
+                </ul>
+
+
+                | {{$schedule->start_at->format('d.m.Y H:i')}} - {{
             $schedule->end_at->format('d.m.Y H:i') }}
             </li>
         @endforeach

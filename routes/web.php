@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -7,7 +8,9 @@ Route::get('/', function () {
 
     $mediaContents = \App\Models\MediaContent::with('media', 'schedules')->get();
 
-    return view('welcome', ['displays' => $displays, 'mediaContents' => $mediaContents]);
+    $schedules = \App\Models\Schedule::with('mediaContents')->get();
+
+    return view('welcome', ['displays' => $displays, 'mediaContents' => $mediaContents, 'schedules' => $schedules]);
 });
 
 Route::get('/displays/{id}', function (string $id) {
@@ -15,3 +18,6 @@ Route::get('/displays/{id}', function (string $id) {
 
     return view('display', ['display' => $display]);
 })->name('displays.show');
+
+Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedules.index');
+Route::get('/schedules/form/{id?}', [ScheduleController::class, 'form'])->name('schedules.form');

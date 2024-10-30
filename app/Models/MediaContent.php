@@ -23,6 +23,6 @@ class MediaContent extends Model implements HasMedia
 
     public function schedules()
     {
-        return $this->belongsToMany(Schedule::class)->withPivot(['cutoff_seconds']);
+        return $this->belongsToMany(Schedule::class)->withPivot(['cutoff_seconds', 'order']);
     }
 }
