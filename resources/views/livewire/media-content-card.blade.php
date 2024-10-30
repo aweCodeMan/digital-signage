@@ -8,15 +8,26 @@
         uppercase" title="Not yet supported">Edit
             </button>
 
-            <button disabled class="disabled:bg-gray-400 disabled:text-gray-500 border font-semibold rounded bg-blue-300
-        px-3 py-1 text-sm
-        uppercase" title="Not yet supported">Remove
+            <button wire:click="delete" class="btn btn-danger-outline" wire:confirm="Are you sure you want to delete
+            {{$mediaContent->title}}"
+            >Remove
             </button>
         </div>
     </div>
 
     @if($mediaContent->getFirstMedia())
         <p class="text-sm text-gray-900">Size: {{ $mediaContent->getFirstMedia()->human_readable_size }}</p>
+    @endif
+
+    @if($mediaContent->media_type ==
+  \App\Models\MediaContent::MEDIA_TYPE_URL)
+        <p class="text-sm text-gray-900">URL: <a class="text-sm text-gray-500" target="_blank" href="{{ $mediaContent->data['url'] }}">{{
+        $mediaContent->data['url'] }}</a></p>
+    @endif
+
+    @if($mediaContent->media_type == \App\Models\MediaContent::MEDIA_TYPE_IMAGE || $mediaContent->media_type ==
+    \App\Models\MediaContent::MEDIA_TYPE_URL)
+        <p class="text-sm text-gray-900">Change after: {{ $mediaContent->cutoff_seconds }}s</p>
     @endif
 
     <p class="mt-3 text-sm font-semibold">Current active schedules:</p>

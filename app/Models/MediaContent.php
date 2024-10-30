@@ -17,8 +17,12 @@ class MediaContent extends Model implements HasMedia
 
     protected $guarded = [];
 
+    protected $casts = [
+        'data' => 'json',
+    ];
+
     public function schedules()
     {
-        return $this->hasMany(Schedule::class);
+        return $this->belongsToMany(Schedule::class)->withPivot(['cutoff_seconds']);
     }
 }

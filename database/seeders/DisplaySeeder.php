@@ -32,7 +32,7 @@ class DisplaySeeder extends Seeder
             'name' => 'Vhod #2',
         ]);
 
-        $image = MediaContent::create(['media_type' => MediaContent::MEDIA_TYPE_IMAGE, 'title' => 'Image']);
+        $image = MediaContent::create(['media_type' => MediaContent::MEDIA_TYPE_IMAGE, 'title' => 'Image', 'cutoff_seconds' => 30]);
         $image->addMedia(storage_path('/seeds/image.jpeg'))
             ->preservingOriginal()
             ->toMediaCollection();
@@ -42,47 +42,42 @@ class DisplaySeeder extends Seeder
             ->preservingOriginal()
             ->toMediaCollection();
 
-        $url = MediaContent::create(['media_type' => MediaContent::MEDIA_TYPE_URL, 'title' => 'Url']);
+        $url = MediaContent::create(['media_type' => MediaContent::MEDIA_TYPE_URL, 'title' => 'Url', 'cutoff_seconds'
+        => 30, 'data' => ['url' => 'https://kinodvor.kupikarto.si/index.php']]);
 
-        Schedule::create([
+        $s1 = Schedule::create([
             'display_id' => $display1->id,
-            'media_content_id' =>$image->id,
+            //'media_content_id' =>$image->id,
             'start_at' => Carbon::now()->startOfDay(),
             'end_at' => Carbon::now()->addWeeks(random_int(1, 8))->endOfDay(),
         ]);
-        Schedule::create([
+        $s1->mediaContents()->attach([$image->id]);
+
+
+        $s2 = Schedule::create([
             'display_id' => $display2->id,
-            'media_content_id' =>$video->id,
+            //'media_content_id' =>$video->id,
             'start_at' => Carbon::now()->startOfDay(),
             'end_at' => Carbon::now()->addWeeks(random_int(1, 8))->endOfDay(),
         ]);
+        $s2->mediaContents()->attach([$video->id]);
 
-        Schedule::create([
+
+        $s3 = Schedule::create([
             'display_id' => $display3->id,
-            'media_content_id' =>$url->id,
+            //'media_content_id' =>$url->id,
             'start_at' => Carbon::now()->startOfDay(),
             'end_at' => Carbon::now()->addWeeks(random_int(1, 8))->endOfDay(),
         ]);
+        $s3->mediaContents()->attach([$url->id]);
 
 
-        Schedule::create([
+        $s4 = Schedule::create([
             'display_id' => $display4->id,
-            'media_content_id' =>$image->id,
+            //'media_content_id' =>$image->id,
             'start_at' => Carbon::now()->startOfDay(),
             'end_at' => Carbon::now()->addWeeks(random_int(1, 8))->endOfDay(),
         ]);
-        Schedule::create([
-            'display_id' => $display4->id,
-            'media_content_id' =>$video->id,
-            'start_at' => Carbon::now()->startOfDay(),
-            'end_at' => Carbon::now()->addWeeks(random_int(1, 8))->endOfDay(),
-        ]);
-
-        Schedule::create([
-            'display_id' => $display4->id,
-            'media_content_id' =>$url->id,
-            'start_at' => Carbon::now()->startOfDay(),
-            'end_at' => Carbon::now()->addWeeks(random_int(1, 8))->endOfDay(),
-        ]);
+        $s4->mediaContents()->attach([$image->id, $video->id, $url->id]);
     }
 }

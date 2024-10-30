@@ -13,9 +13,10 @@ class Schedule extends Model
         'end_at' => 'datetime',
     ];
 
-    public function mediaContent()
+
+    public function mediaContents()
     {
-        return $this->belongsTo(MediaContent::class);
+        return $this->belongsToMany(MediaContent::class)->withPivot(['cutoff_seconds']);
     }
 
     public function display()

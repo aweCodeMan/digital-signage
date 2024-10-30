@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $displays = \App\Models\Display::with('schedules')->get();
+    $displays = \App\Models\Display::with('schedules', 'schedules.mediaContents')->get();
 
     $mediaContents = \App\Models\MediaContent::with('media', 'schedules')->get();
 
@@ -11,7 +11,7 @@ Route::get('/', function () {
 });
 
 Route::get('/displays/{id}', function (string $id) {
-    $display = \App\Models\Display::with('schedules', 'schedules.mediaContent')->findOrFail($id);
+    $display = \App\Models\Display::with('schedules', 'schedules.mediaContents')->findOrFail($id);
 
     return view('display', ['display' => $display]);
 })->name('displays.show');

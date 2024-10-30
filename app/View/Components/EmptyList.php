@@ -2,17 +2,16 @@
 
 namespace App\View\Components;
 
-use App\Models\MediaContent;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class MediaContentCard extends Component
+class EmptyList extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(public MediaContent $mediaContent)
+    public function __construct()
     {
         //
     }
@@ -22,6 +21,6 @@ class MediaContentCard extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.media-content-card');
+        return view('components.empty-list');
     }
 }

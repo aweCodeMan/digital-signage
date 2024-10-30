@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Display extends Model
 {
+
+    protected $guarded = [];
+
     public function schedules()
     {
         return $this->hasMany(Schedule::class);

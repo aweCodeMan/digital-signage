@@ -4,24 +4,31 @@
     <div class="py-3 bg-gray-50 border-b shadow">
         <div class="container">
             <div class="uppercase text-sm font-semibold">Control panel</div>
+            displays:{{ \App\Models\Display::count() }}<br>
+            schedules:{{ \App\Models\Schedule::count() }}<br>
+            medias contents:{{ \App\Models\MediaContent::count() }} <br>
+            medias:{{ \Spatie\MediaLibrary\MediaCollections\Models\Media::count() }}
         </div>
     </div>
     <div class="container">
 
-        <div class="flex flex-row justify-between items-center mt-4 mb-6">
-            <h1 class="text-lg font-semibold uppercase">Displays</h1>
-
-
-            <button disabled class="disabled:bg-gray-400 disabled:text-gray-500 border font-semibold rounded bg-blue-300
-        px-3 py-1 text-sm
-        uppercase" title="Not yet supported">Add display</button>
+        <div class="grid grid-cols-2 gap-3">
+            @livewire('mediaContentForm')
+            @livewire('displayForm')
         </div>
 
+        <div class="flex flex-row justify-between items-center mt-4 mb-6">
+            <h1 class="text-lg font-semibold uppercase">Displays</h1>
+        </div>
 
         <div class="grid grid-cols-1 gap-3">
             @foreach($displays as $display)
-                <x-display-card :display="$display"></x-display-card>
+                <livewire-display-card :display="$display"></livewire-display-card>
             @endforeach
+
+            @empty($displays->toArray())
+                @include('components.empty-list', ['message' => 'No displays have been added.'])
+            @endempty
         </div>
 
     </div>
@@ -30,23 +37,18 @@
 
     <div class="container">
         <div class="flex flex-row justify-between items-center mt-4 mb-6">
-            <h1 class="text-lg font-semibold uppercase">Media content</h1>
-
-
-            <button disabled class="disabled:bg-gray-400 disabled:text-gray-500 border font-semibold rounded bg-blue-300
-        px-3 py-1 text-sm
-        uppercase" title="Not yet supported">Add media</button>
+            <h1 class="text-lg font-semibold uppercase">Media</h1>
         </div>
-
 
         <div class="grid grid-cols-1 gap-3">
             @foreach($mediaContents as $mediaContent)
-                <x-media-content-card :mediaContent="$mediaContent"></x-media-content-card>
+                <livewire-media-content-card :mediaContent="$mediaContent"></livewire-media-content-card>
             @endforeach
-        </div>
 
+            @empty($mediaContents->toArray())
+                @include('components.empty-list', ['message' => 'No media has been added.'])
+            @endempty
+        </div>
     </div>
 
 @endsection
-
-

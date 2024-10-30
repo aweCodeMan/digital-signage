@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('media_contents', function (Blueprint $table) {
-            $table->id();
-            $table->string('title')->nullable();
-            $table->string('media_type')->index();
+        Schema::create('media_content_schedule', function (Blueprint $table) {
+            $table->foreignId('media_content_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('schedule_id')->constrained()->cascadeOnDelete();
             $table->unsignedInteger('cutoff_seconds')->nullable();
-            $table->json('data')->nullable();
+            $table->unsignedInteger('order')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('media_contents');
+        Schema::dropIfExists('media_content_schedule');
     }
 };

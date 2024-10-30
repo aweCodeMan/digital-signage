@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('display_id')->index();
-            $table->unsignedInteger('media_content_id')->index();
+            $table->foreignId('display_id')->index()->constrained()->onDelete('cascade');
+            $table->string('name')->nullable();
             $table->dateTime('start_at')->index();
             $table->dateTime('end_at')->index();
             $table->timestamps();
