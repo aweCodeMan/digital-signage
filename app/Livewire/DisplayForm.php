@@ -9,8 +9,10 @@ class DisplayForm extends Component
 {
     public string $name = '';
 
+    public Display|null $display = null;
+
     public $rules = [
-        'name' => 'required',
+        'name' => 'required|string',
     ];
 
     public function render()
@@ -18,14 +20,28 @@ class DisplayForm extends Component
         return view('livewire.display-form');
     }
 
+    public function mount()
+    {
+        if ($this->display) {
+            $this->name = $this->display->name ?? '';
+        }
+    }
+
     public function save()
     {
         $validated = $this->validate();
 
-        $display = Display::create([
-            'name' => $validated['name'],
-        ]);
+        if ($this->display) {
+            $display = $this->display->fill([
+                'name' => $validated['name'],
+            ]);
+            $display->save();
+        } else {
+            $display = Display::create([
+                'name' => $validated['name'],
+            ]);
+        }
 
-        $this->js('window.location.reload()');
+        $this->redirectRoute('displays.index');
     }
 }
