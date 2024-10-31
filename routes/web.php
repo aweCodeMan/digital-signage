@@ -6,15 +6,14 @@ use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $displays = \App\Models\Display::with('schedules', 'schedules.mediaContents')->get();
+    $stats = [
+        ['label' => 'Displays', 'data' => \App\Models\Display::count(), 'link' => route('displays.index')],
+        ['label' => 'Schedules', 'data' => \App\Models\Schedule::count(), 'link' => route('schedules.index')],
+        ['label' => 'Media', 'data' => \App\Models\MediaContent::count(), 'link' => route('media_contents.index')],
+    ];
 
-    $mediaContents = \App\Models\MediaContent::with('media', 'schedules')->get();
-
-    $schedules = \App\Models\Schedule::with('mediaContents')->get();
-
-    return view('welcome', ['displays' => $displays, 'mediaContents' => $mediaContents, 'schedules' => $schedules]);
-});
-
+    return view('dashboard', ['stats' => $stats]);
+})->name('dashboard');
 
 
 Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedules.index');
