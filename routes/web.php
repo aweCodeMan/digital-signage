@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DisplayController;
+use App\Http\Controllers\MediaContentController;
 use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,3 +28,6 @@ Route::get('/displays/{id}', function (string $id) {
 
     return view('display', ['display' => $display]);
 })->name('displays.show');
+
+Route::get('/media-contents', [MediaContentController::class, 'index'])->name('media_contents.index');
+Route::get('/media-contents/form/{id?}', [MediaContentController::class, 'form'])->name('media_contents.form');

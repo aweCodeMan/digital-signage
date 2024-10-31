@@ -3,10 +3,10 @@
         <h2 class="text-gray-900 tracking-tight text-xl font-semibold mb-3">{{ $mediaContent->title }}</h2>
 
         <div>
-            <button disabled class="disabled:bg-gray-400 disabled:text-gray-500 border font-semibold rounded bg-blue-300
-        px-3 py-1 text-sm
-        uppercase" title="Not yet supported">Edit
-            </button>
+            <a href="{{ route('media_contents.form', ['id' => $mediaContent->id]) }}">
+                <button class="btn btn-primary-outline">Edit
+                </button>
+            </a>
 
             <button wire:click="delete" class="btn btn-danger-outline" wire:confirm="Are you sure you want to delete
             {{$mediaContent->title}}"

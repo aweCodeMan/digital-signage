@@ -5,7 +5,7 @@
         <div class="flex flex-row items-center">
             <a  href="{{ route('displays.index') }}">Displays</a>
             <a  href="{{ route('schedules.index') }}">Schedules</a>
-            <a href="/">Media</a>
+            <a  href="{{ route('media_contents.index') }}">Media</a>
         </div>
     </div>
 </div>
