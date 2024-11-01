@@ -7,7 +7,7 @@
         </div>
 
         <div class="card">
-            @livewire('scheduleForm', ['schedule' => $schedule])
+            @livewire('scheduleForm', ['schedule' => $schedule, 'clone' => $clone])
         </div>
     </div>
 @endsection

@@ -3,6 +3,11 @@
         <h2 class="text-gray-900 tracking-tight text-xl font-semibold mb-3">{{ $schedule->name }}</h2>
 
         <div>
+            <a href="{{ route('schedules.form', ['clone' => $schedule->id]) }}">
+                <button class="btn btn-primary-outline">Clone
+                </button>
+            </a>
+
             <a href="{{ route('schedules.form', ['id' => $schedule->id]) }}">
                 <button class="btn btn-primary-outline">Edit
                 </button>

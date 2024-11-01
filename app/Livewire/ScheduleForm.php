@@ -14,6 +14,8 @@ class ScheduleForm extends Component
 
     public Schedule|null $schedule = null;
 
+    public Schedule|null $clone = null;
+
     public $rules = [
         'name' => 'string',
         'start_at' => 'required|date',
@@ -47,6 +49,14 @@ class ScheduleForm extends Component
             $this->end_at = Carbon::parse($this->schedule->end_at)->toDateTimeLocalString('minute');
             $this->selected_displays = $this->schedule->displays->pluck('id') ?? [];
             $this->selected_media_contents = $this->schedule->mediaContents->pluck('id') ?? [];
+        }
+
+        if ($this->clone) {
+            $this->name = "Clone " .  $this->clone->name ?? '';
+            $this->start_at = Carbon::parse($this->clone->start_at)->toDateTimeLocalString('minute');
+            $this->end_at = Carbon::parse($this->clone->end_at)->toDateTimeLocalString('minute');
+            $this->selected_displays = $this->clone->displays->pluck('id') ?? [];
+            $this->selected_media_contents = $this->clone->mediaContents->pluck('id') ?? [];
         }
     }
 

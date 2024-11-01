@@ -14,14 +14,20 @@ class ScheduleController extends Controller
         return view('schedules-page', ['schedules' => $schedules]);
     }
 
-    public function form($id = null)
+    public function form(Request $request, string $id = null,)
     {
+
         $schedule = null;
+        $clone = null;
+
+        if($request->has('clone')){
+            $clone = Schedule::find($request->get('clone'));
+        }
 
         if ($id) {
             $schedule = Schedule::find($id);
         }
 
-        return view('schedule-form-page', ['schedule' => $schedule]);
+        return view('schedule-form-page', ['schedule' => $schedule, 'clone' => $clone]);
     }
 }
