@@ -14,4 +14,6 @@ class Display extends Model
     {
         return $this->belongsToMany(Schedule::class)->withPivot(['order']);
     }
+
+
 }

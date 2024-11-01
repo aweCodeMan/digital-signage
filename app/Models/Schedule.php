@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Schedule extends Model
@@ -21,6 +22,22 @@ class Schedule extends Model
     public function displays()
     {
         return $this->belongsToMany(Display::class)->withPivot(['order']);
+    }
+
+    public function scopeActive(Builder $query)
+    {
+        $query->where('start_at', '<=', now());
+        $query->where('end_at', '>=', now());
+    }
+
+    public function scopeUpcoming(Builder $query)
+    {
+        $query->where('start_at', '>', now());
+    }
+
+    public function scopeExpired(Builder $query)
+    {
+        $query->where('end_at', '<', now());
     }
 
     public function getNameAttribute()
