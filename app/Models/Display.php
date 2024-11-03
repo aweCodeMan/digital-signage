@@ -15,5 +15,10 @@ class Display extends Model
         return $this->belongsToMany(Schedule::class)->withPivot(['order']);
     }
 
+    public function default_media_content()
+    {
+        return $this->belongsTo(MediaContent::class, 'media_content_id', 'id')->with('media');
+    }
+
 
 }
