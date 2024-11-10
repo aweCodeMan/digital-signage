@@ -5,15 +5,9 @@ use App\Http\Controllers\MediaContentController;
 use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    $stats = [
-        ['label' => 'Displays', 'data' => \App\Models\Display::count(), 'link' => route('displays.index')],
-        ['label' => 'Schedules', 'data' => \App\Models\Schedule::count(), 'link' => route('schedules.index')],
-        ['label' => 'Media', 'data' => \App\Models\MediaContent::count(), 'link' => route('media_contents.index')],
-    ];
 
-    return view('dashboard', ['stats' => $stats]);
-})->name('dashboard');
+
+Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
 
 Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedules.index');

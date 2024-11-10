@@ -2,15 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+.h1 {
+    @apply text-2xl font-semibold tracking-tight;
+}
+
 .btn {
     @apply border font-semibold rounded px-3 py-2 text-sm uppercase;
+
+    &-sm {
+        @apply text-sm px-2 py-1;
+    }
+
+
+    &-link {
+        @apply border-transparent normal-case text-secondary hover:underline;
+    }
 }
+
 
 .btn-primary {
     @apply disabled:bg-gray-400 disabled:text-gray-500 bg-blue-300 border-blue-400;
 
     &:hover {
-        @apply bg-blue-400 border-blue-500;
+        @apply bg-blue-400 border-blue-500 no-underline;
     }
 }
 
@@ -22,8 +36,16 @@
     }
 }
 
+.btn-secondary-outline {
+    @apply disabled:bg-gray-400 disabled:text-gray-500 border-secondary bg-white text-secondary;
+
+    &:hover {
+        @apply bg-secondary text-white;
+    }
+}
+
 .card {
-    @apply rounded border bg-gray-50 shadow p-3;
+    @apply rounded border bg-white shadow p-4;
 }
 
 .btn-danger-outline {
@@ -39,7 +61,7 @@
         @apply uppercase text-sm font-semibold text-gray-600 px-2;
 
         &:hover, &.active {
-            @apply text-black font-bold;
+            @apply text-secondary font-bold no-underline;
         }
     }
 }

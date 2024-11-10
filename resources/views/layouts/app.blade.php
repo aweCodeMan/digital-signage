@@ -14,8 +14,9 @@
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
     @livewireStyles
 </head>
-<body class="font-sans antialiased dark:bg-black dark:text-white/50 back backdrop-blur-lg">
+<body class="text-gray-800 antialiased font-sans text-sm bg-gray-50">
 @include('components.navbar')
+
 <div class="py-3">
     @yield('content')
 </div>
