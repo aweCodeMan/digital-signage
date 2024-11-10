@@ -1,42 +1,42 @@
-<div class="p-3 border rounded bg-gray-50">
-    <div class="flex flex-row justify-between items-center">
-        <h2 class="text-gray-900 tracking-tight text-xl font-semibold mb-3">{{ $display->name }}</h2>
+<div class="card">
+    <div class="flex flex-row justify-between items-center mb-3">
+        <h2 class="h1">{{ $display->name }}</h2>
 
         <div>
             <a href="{{ route('displays.form', ['id' => $display->id]) }}">
-                <button class="btn btn-primary-outline">Edit
+                <button class="btn-icon btn">
+                    <i class="fa-solid fa-pencil"></i>
                 </button>
             </a>
-            <button wire:click="delete" class="btn btn-danger-outline" wire:confirm="Are you sure you want to delete
-            {{$display->name}}"
-            >Remove
+            <button wire:click="delete" class="btn btn-icon"
+                    wire:confirm="Are you sure you want to delete {{$display->name}}?">
+                <i class="fa-solid fa-trash-alt"></i>
             </button>
         </div>
     </div>
 
-    <a class="text-sm text-gray-500" href="{{ route('displays.show', $display->id) }}" target="_blank">
-        {{ route('displays.show',  $display->id) }}</a>
+    <a class="text-sm text-gray-500 hover:text-secondary" href="{{ route('kiosks.show', $display->id)
+    }}" target="_blank">
+        <i class="fa-solid fa-link text-xs opacity-70"></i>
+        {{ route('kiosks.show',  $display->id) }}</a>
 
 
-    <div class="w-[50%]">
-        <p class="mt-3 text-sm font-semibold">Current active schedules:</p>
-        @foreach($display->schedules as $schedule)
-            <p class="text-sm text-gray-700">Schedule #{{ $schedule->id }} ({{$schedule->start_at->format('d.m.Y H:i')}}
-                - {{
-            $schedule->end_at->format('d.m.Y H:i') }})</p>
-            <ul class="list-disc pl-4 text-sm">
-                @foreach($schedule->mediaContents as $mediaContent)
+    <div class="mt-3">
+        @if($display->schedules->toArray())
+            <p class="text-sm font-semibold">Active schedules:</p>
+
+            <ul class="list-disc pl-4">
+                @foreach($display->schedules as $schedule)
                     <li>
-                        {{ $mediaContent->title }}
+                        <a class="hover:text-secondary"
+                           href="{{ route('schedules.form', ['id' => $schedule->id])}}">{{$schedule->name}}</a>
                     </li>
                 @endforeach
             </ul>
 
-        @endforeach
-
-        @empty($display->schedules->toArray())
+        @else
             @include('components.empty-list', ['message' => 'No active schedules.'])
-        @endempty
+        @endif
     </div>
 
 </div>

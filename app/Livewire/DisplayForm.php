@@ -11,7 +11,7 @@ class DisplayForm extends Component
 {
     public string $name = '';
 
-    public Display|null $display = null;
+    public Display|null $item = null;
 
     public Collection $mediaContents;
 
@@ -32,9 +32,9 @@ class DisplayForm extends Component
     {
         $this->mediaContents = MediaContent::all();
 
-        if ($this->display) {
-            $this->name = $this->display->name ?? '';
-            $this->media_content_id = $this->display->media_content_id;
+        if ($this->item) {
+            $this->name = $this->item->name ?? '';
+            $this->media_content_id = $this->item->media_content_id;
         }
     }
 
@@ -44,8 +44,8 @@ class DisplayForm extends Component
 
         $media_content_id = $validated['media_content_id'] ? $validated['media_content_id'] : null;
 
-        if ($this->display) {
-            $display = $this->display->fill([
+        if ($this->item) {
+            $display = $this->item->fill([
                 'name' => $validated['name'],
                 'media_content_id' => $media_content_id
             ]);

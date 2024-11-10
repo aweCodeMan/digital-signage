@@ -9,19 +9,24 @@ class DisplayController extends Controller
 {
     public function index()
     {
-        $displays = Display::with('schedules')->orderByDesc('created_at')->paginate(5);
+        $displays = Display::with([
+            'schedules' => function ($query) {
+                $query->active();
+            }
+        ])
+            ->paginate();
 
-        return view('displays-page', ['displays' => $displays]);
+        return view('pages.displays', ['displays' => $displays]);
     }
 
     public function form($id = null)
     {
-        $display = null;
+        $item = null;
 
         if ($id) {
-            $display = Display::find($id);
+            $item = Display::findOrFail($id);
         }
 
-        return view('display-form-page', ['display' => $display]);
+        return view('pages.display-form', ['item' => $item]);
     }
 }

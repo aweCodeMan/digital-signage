@@ -19,6 +19,7 @@
 
     <hr>
     <div class="text-center">
-        <button wire:loading.attr="disabled" class="btn btn-primary" wire:loading.attr="disabled">Save</button>
+        <button wire:loading.attr="disabled" class="btn btn-secondary-outline" wire:loading.attr="disabled">Save
+        </button>
     </div>
 </form>

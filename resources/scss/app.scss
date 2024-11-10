@@ -1,3 +1,5 @@
+@import "@fortawesome/fontawesome-free/css/all.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -16,6 +18,10 @@
 
     &-link {
         @apply border-transparent normal-case text-secondary hover:underline;
+    }
+
+    &-icon {
+        @apply border-transparent normal-case text-secondary hover:text-white hover:bg-secondary;
     }
 }
 

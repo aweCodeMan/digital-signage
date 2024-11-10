@@ -66,7 +66,6 @@
                 showNext(viewState.scheduleIndex, viewState.mediaContentIndex, viewState.schedules);
             }, media.cutoffSeconds * 1000);
         }
-
     }
 
     function videoEnded() {
@@ -92,7 +91,7 @@
     }
 
     async function fetchSchedules() {
-        let response = await fetch('/displays/{{$display->id}}/schedules')
+        let response = await fetch("{{ route('kiosks.schedules', ['id' => $display->id]) }}")
         return await response.json()
     }
 
