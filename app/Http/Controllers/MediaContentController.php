@@ -9,9 +9,14 @@ class MediaContentController extends Controller
 {
     public function index()
     {
-        $mediaContents = MediaContent::with('schedules')->orderByDesc('created_at')->paginate(5);
+        $mediaContents = MediaContent::with([
+            'schedules' => function ($query) {
+                $query->active();
+            }
+        ])
+            ->paginate();
 
-        return view('media-contents-page', ['mediaContents' => $mediaContents]);
+        return view('pages.media-contents', ['mediaContents' => $mediaContents]);
     }
 
     public function form($id = null)
@@ -19,9 +24,9 @@ class MediaContentController extends Controller
         $item = null;
 
         if ($id) {
-            $item = MediaContent::find($id);
+            $item = MediaContent::findOrFail($id);
         }
 
-        return view('media-content-form-page', ['mediaContent' => $item]);
+        return view('pages.media-content-form', ['item' => $item]);
     }
 }

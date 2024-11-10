@@ -47,12 +47,20 @@
             <div wire:loading wire:target="photo">Uploading...</div>
         </div>
 
+    @else
+        <div class="mt-6">
+            <h2 class="text-sm text-gray-700">Preview:</h2>
 
+            <div class="card">
+                @include('components.media-content-preview', ['mediaContent' => $mediaContent])
+            </div>
+        </div>
     @endif
 
     <hr>
     <div class="text-center">
-        <button wire:loading.attr="disabled" class="btn btn-primary" wire:loading.attr="disabled">Save</button>
+        <button wire:loading.attr="disabled" class="btn btn-secondary-outline" wire:loading.attr="disabled">Save
+        </button>
     </div>
 </form>
 
