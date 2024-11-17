@@ -1,4 +1,4 @@
-@if($items)
+@if(count($items))
     <p class="text-sm font-semibold">Active schedules:</p>
 
     <ul class="list-disc pl-4">
