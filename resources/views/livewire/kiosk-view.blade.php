@@ -1,3 +1,4 @@
+@php use App\Http\Resources\MediaContentResource; @endphp
 <div x-data="kiosk" id="kiosk">
     <template x-if="($store.kiosk.currentlyPlaying?.mediaType) == 'image'">
         <div class="fixed top-0 bottom-0 left-0 right-0">
@@ -54,12 +55,31 @@
         });
     }, POOLING_RATE_IN_SECONDS * 1000)
 
+    function showDefault() {
+        const defaultMedia = {!! $display->default_media_content ? (new MediaContentResource
+        ($display->default_media_content))->toJson() : "null" !!};
+
+        if (defaultMedia) {
+            viewState = {...viewState, currentlyPlaying: defaultMedia};
+            Alpine.store('kiosk', {...viewState});
+            setupTimeouts(defaultMedia, viewState);
+        }
+    }
+
     function showNext(scheduleIndex, mediaContentIndex, schedules) {
-        let media = schedules[scheduleIndex].mediaContents[mediaContentIndex];
+        let media = schedules[scheduleIndex]?.mediaContents[mediaContentIndex];
+
+        if (media == null) {
+            return showDefault();
+        }
 
         viewState = {...viewState, currentlyPlaying: media};
         Alpine.store('kiosk', {...viewState});
 
+        setupTimeouts(media, viewState);
+    }
+
+    function setupTimeouts(media, viewState) {
         if (['image', 'url'].includes(media.mediaType.toLowerCase())) {
             setTimeout(() => {
                 incrementIndexes();
@@ -77,7 +97,7 @@
         const currentScheduleIndex = viewState.scheduleIndex;
         const currentMediaContentIndex = viewState.mediaContentIndex;
 
-        if (currentMediaContentIndex + 1 < viewState.schedules[currentScheduleIndex].mediaContents.length) {
+        if (currentMediaContentIndex + 1 < viewState.schedules[currentScheduleIndex]?.mediaContents.length) {
             viewState = {...viewState, mediaContentIndex: currentMediaContentIndex + 1};
         } else {
             if (currentScheduleIndex + 1 < viewState.schedules.length) {
