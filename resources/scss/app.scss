@@ -72,3 +72,15 @@
     }
 }
 
+.badge {
+    @apply text-xs rounded shadow px-2 py-1 inline-block uppercase font-semibold;
+
+    &-primary {
+        @apply bg-primary text-gray-700;
+    }
+
+    &-secondary {
+        @apply bg-secondary text-white;
+    }
+}
+

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Schedule extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
 
     protected $casts = [
@@ -18,7 +19,7 @@ class Schedule extends Model
 
     public function mediaContents()
     {
-        return $this->belongsToMany(MediaContent::class)->withPivot(['cutoff_seconds']);
+        return $this->belongsToMany(MediaContent::class)->withPivot(['cutoff_seconds', 'order'])->orderByPivot('order');
     }
 
     public function displays()
@@ -40,6 +41,16 @@ class Schedule extends Model
     public function scopeExpired(Builder $query)
     {
         $query->where('end_at', '<', now());
+    }
+
+    public function isActive()
+    {
+        return $this->start_at <= now() && $this->end_at >= now();
+    }
+
+    public function isUpcoming()
+    {
+        return $this->start_at > now();
     }
 
     public function getNameAttribute()
